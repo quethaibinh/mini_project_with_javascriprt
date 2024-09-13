@@ -1,0 +1,16 @@
+tạo định tuyến bằng thư viện navigo (router)
+
+để cài đặt thì dùng lệnh: npm install navigo (hoặc viết tắt: npm i navigo)
+
+để sử dung, cần import thư viện: from Navigo import "navigo";
+để gán, tạo 1 biến router: const router = new Navigo('/');
+nếu muốn không phải load lại trang mỗi khi bấm vào thẻ a thì: const router = new Navigo('/', {linkSelector: "a"})
+
+để truy cập vào 1 trang trong 1 trang khác thì cứ dùng:
+  router.on('/products/list', function () {
+    // do something
+  });
+
+=> có thể on liên tục cũng được => trang con bên trong trang cha
+
+mặc định là sau khi thay đổi trang cần gọi hàm này: router.resolve();

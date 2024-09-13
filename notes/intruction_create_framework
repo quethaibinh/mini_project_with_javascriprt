@@ -1,0 +1,15 @@
+đầu tiên cần phải chạy câu lệnh: Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+    => để tránh phát sinh những lỗi (câu lệnh trên nhằm cấp quyền cho các câu lệnh sau, tránh lỗi không có quyền truy cập)
+
+tiếp theo, sử dụng vite: npm create vite
+sau đó, nó yêu cầu đặt tên cho dự án
+nếu folder trống thì không gặp lỗi gì mà nó sẽ hiển thị ra những framework mà chúng ta muốn làm, chỉ cần chọn framework chúng ta muốn
+có vuejs, reactjs, angular, ... => trong dự án này thì nên chọn cái đầu tiên: vanilla (hỗ trợ tốt cho javascript thuần)
+còn nếu folder có file rồi thì nó sẽ có 3 lựa chọn: xóa những file đó, bỏ qua những file đó và tiếp tục, kết thúc cài đặt vite
+nếu folder có file index.html hoặc những file trùng tên với những file mà vite sẽ tạo thì nên xóa đi, nếu không nó sẽ báo lỗi
+sau đó chọn kiểu => nên chọn javascript, nó có cả typescript nhưng mà nên chọn javascript
+    => nó sẽ tự cài đặt những file cần thiết cho chúng ta vào folder
+
+sau đó, nó sẽ hướng dẫn ta những câu lệnh để chạy
+đầu tiên cần chạy: npm install
+sau đó để chạy file thì: npm run dev

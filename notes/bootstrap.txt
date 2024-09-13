@@ -1,0 +1,1 @@
+để cài đặt, dùng câu lệnh: npm install bootstrap (hoặc ngắn gọn hơn thì là npm i bootstrap)
