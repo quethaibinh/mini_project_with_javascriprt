@@ -1,0 +1,41 @@
+để cài đặt thư viện axios thì dùng câu lệnh: npm i axios
+
+=> dùng để thay thế lệnh fetch (call api) => đơn giản hơn, kết hợp với async/await thì nhìn cú pháp nó ngắn và đơn giản hơn
+
+1. Tự động xử lý JSON: Axios tự động chuyển đổi dữ liệu JSON từ server về thành object JavaScript, trong khi với fetch bạn cần sử dụng .json() để chuyển đổi dữ liệu.
+2. Hỗ trợ tốt hơn với lỗi: Fetch không tự động ném lỗi nếu yêu cầu thất bại (ví dụ, mã trạng thái HTTP là 404 hay 500), bạn phải kiểm tra response.ok. Còn Axios sẽ tự động ném lỗi nếu yêu cầu không thành công.
+3. Hỗ trợ với JSON, URL-encoded và Form Data: Axios hỗ trợ tốt việc gửi dữ liệu dưới nhiều dạng khác nhau như JSON, URL-encoded, hay Form Data mà không cần cấu hình phức tạp.
+4. Tương thích với các trình duyệt cũ hơn: Axios tương thích với nhiều trình duyệt cũ hơn, trong khi fetch có thể không được hỗ trợ đầy đủ trên các trình duyệt cũ.
+5. Request hủy bỏ dễ dàng hơn: Axios cho phép bạn dễ dàng hủy bỏ một yêu cầu HTTP thông qua CancelToken.
+6. Cấu hình dễ dàng hơn: Axios cung cấp cách cấu hình mặc định cho tất cả các yêu cầu hoặc riêng từng yêu cầu, ví dụ như cấu hình headers, timeout.
+
+để sử dụng, dùng import axios from "axios"
+
+=> tạo 1 file dùng để tạo hàm sử dụng axios, đặt tên folder là apis, tên file xử lí là index.js:
+
+        import axios from "axios";
+
+        const api = axios.create({
+            baseURL: "http://localhost:3000",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        export default api;
+
+// const api = axios.create({...});
+Dòng này sử dụng phương thức axios.create() để tạo một instance của Axios với các cấu hình mặc định. 
+Thay vì sử dụng trực tiếp Axios, bạn có thể tạo một instance riêng biệt với các cấu hình cụ thể cho dự án của mình.
+
+Các cấu hình này bao gồm:
+
+- baseURL: "http://localhost:3000",
+=> baseURL: Đây là URL cơ sở cho tất cả các yêu cầu được thực hiện qua instance này. 
+Trong trường hợp này, tất cả các yêu cầu sẽ bắt đầu từ http://localhost:3000, 
+điều này hữu ích khi bạn tương tác với một server chạy trên máy local (ví dụ server FastAPI hay Node.js).
+
+- headers: { "Content-Type": "application/json", },
+headers: Cấu hình các header mặc định cho tất cả các yêu cầu.
+"Content-Type": "application/json": Điều này thiết lập cho tất cả các yêu cầu HTTP gửi từ api instance có Content-Type là application/json, 
+nghĩa là dữ liệu sẽ được gửi và nhận dưới dạng JSON.

@@ -1,0 +1,51 @@
+cách cài đặt: npm i json-server@0.17 (tải bản này cho nó ổn định)
+
+cài đặt concurrently để thực hiện nhiều "npm run start" cùng một lúc: npm i concurrnently
+
+tạo 1 file database.json và thêm dữ liệu fake vào (đặt tên là gì cũng được, file để fake dữ liệu như từ backend trả về)
+=> copy dữ liệu từ jsondummy vào hoặc tự tạo ra dữ liệu đồng bộ với dữ liệu mà bên backend dự kiến trả về
+
+cài đặt json server auth, để xử lí đăng kí đăng nhập (xác thực và phân quyền)
+câu lệnh cài: npm i json-server-auth
+
+để dễ dàng mỗi khi chạy lệnh, thay đổi file package.json một chút:
+    vào file package.json và thêm dòng lệnh vào mục script: "server": "json-server --watch database.json -m ./node_modules/json-server-auth --port 3000",
+                                                            "start": "concurrently \"npm run dev\" \"npm run server\""
+
+    => câu lệnh concurrently là để khi chạy lệnh start thì nó mặc định chạy luôn cả 2 lệnh run dev và run server
+    => khi chạy chỉ cần chạy npm start là nó chạy hết các lệnh được định nghĩa ở trong script
+    mặc định là chạy json server auth trên cổng 3000
+
+    nếu muốn chạy trực tiếp: npm run server (chỉ chạy json server auth)
+
+
+muốn check dữ liệu, lên postman và lấy đường đẫn localhost:3000, và các phương thức mà mình muốn 
+    => phương thức get sẽ được gợi ý ngay trên terminal ở phần resources (VD như ở file này là: http://localhost:3000/users,  http://localhost:3000/products)
+
+=> trong json server thì sử dụng những phương thức post hay put hay delete thì đều có chung đường dẫn như ở phần gợi ý terminal
+=> chỉ cần thay đổi phương thức trong postman là được. 
+=> nhớ là trong file database.json thì phải có những thuộc tính mà ta muốn (mỗi thuộc tính là 1 mảng các thông tin của thuộc tính đó) => thay cho bảng trong database
+
+để đăng kí người dùng, dùng phương thức post và đường dẫn: http://localhost:3000/register
+trong phần raw, nhập dữ liệu thông tin của người đăng kí, password luôn tự động được mã hóa trong json server auth, có luôn cả accessToken
+VD: 
+    {
+        "name": "thanh",
+        "email": "thanh@gmail.com",
+        "password": "thanh12345",
+        "age": 20
+    }
+
+    => return ra: 
+        {
+            "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoYW5oQGdtYWlsLmNvbSIsImlhdCI6MTcyNjQ3NTg4MSwiZXhwIjoxNzI2NDc5NDgxLCJzdWIiOiIxIn0._CexPigCqS52bf1fg1Hmqd7nEudSrj-vk6QuZWBzb_k",
+            "user": {
+                "email": "thanh@gmail.com",
+                "name": "thanh",
+                "age": 20,
+                "id": 1
+            }
+        }
+
+để đăng nhập thì cũng giống như đăng kí, đường dẫn sẽ là: http://localhost:3000/login
+=> dữ liệu nhập vào chỉ cần email và password, nó sẽ trả ra thông tin người dùng và mã token đăng nhập.
